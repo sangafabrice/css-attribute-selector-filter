@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Attribute Selector</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <script src="https://kit.fontawesome.com/bc720ffdfc.js" crossorigin="anonymous"></script>
+    <style title="generated-style"></style>
+</head>
+<body>
+    <main>
+        <search><input type="search" placeholder="Search..." autocomplete="false" spellcheck="false"></search>
+    </main>
+    <script>
+        const genSheet = [...document.styleSheets]
+            .filter(({ title }) => title == "generated-style")[0];
+        genSheet.insertRule("li:not([data-value]) { display: none }", 0);
+        const genCssRule = genSheet.cssRules[0];
+        document.querySelector("input").addEventListener("input", function () {
+            const searchText = this.value.toLowerCase();
+            if (searchText.length) {
+                genCssRule.selectorText = `li:not([data-value*="${searchText}"])`
+                return;
+            }
+            genCssRule.selectorText = "li:not([data-value])";
+        });
+    </script>
+</body>
+</html>

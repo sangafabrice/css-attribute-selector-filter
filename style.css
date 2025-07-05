@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #59c3c3;
+}
+
+body {
+    background-color: #f0cea4;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+main {
+    display: grid;
+    inset: 0;
+    margin-inline: auto;
+    position: absolute;
+    grid-template-rows: 10vh 1fr;
+    width: fit-content;
+}
+
+search {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &::after {
+        content: "\f002";
+        font: 900 20px/1 "Font Awesome 6 Free";
+        position: absolute;
+        right: 16px;
+    }
+    
+    > input {
+        border: none;
+        border-radius: 8px;
+        box-shadow: inset .3px .5px 1px 0px #0000003d;
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        height: 48px;
+        padding-inline: 16px 36px;
+        font-size: 24px;
+        width: 100%;
+        
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            color: #bbb;
+        }
+
+        &::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+    }
+}
+
+ul {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 12px 0;
+    overflow: auto;
+
+    > li {
+        align-items: center;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: rgba(183, 70, 42, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        cursor: pointer;
+        display: flex;
+        font-size: 18px;
+        gap: 16px;
+        line-height: 48px;
+        list-style: none;
+        min-height: 48px;
+        overflow: hidden;
+        padding-inline: 12px;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        width: 88%;
+
+        &::before {
+            align-items: center;
+            aspect-ratio: 1/1;
+            content: "\f1ab";
+            display: flex;
+            background-color: #59c3c366;
+            border-radius: 50%;
+            font: 900 16px/1 "Font Awesome 6 Free";
+        }
+
+        &::after {
+            content: attr(data-value);
+            text-transform: capitalize;
+        }
+
+        &:hover {
+            background-color: #bce7e7;;
+        }
+    }
+}
