@@ -11,20 +11,20 @@
 </head>
 <body>
     <main>
-        <search><input type="search" placeholder="Search..." autocomplete="false" spellcheck="false"></search>
+        <search><input type="search" placeholder="Search..." autocomplete="false" spellcheck="false" autofocus></search>
     </main>
     <script>
         const genSheet = [...document.styleSheets]
             .filter(({ title }) => title == "generated-style")[0];
-        genSheet.insertRule("li:not([data-value]) { display: none }", 0);
+        genSheet.insertRule("li[data-value] { display: flex }", 0);
         const genCssRule = genSheet.cssRules[0];
         document.querySelector("input").addEventListener("input", function () {
             const searchText = this.value.toLowerCase();
             if (searchText.length) {
-                genCssRule.selectorText = `li:not([data-value*="${searchText}"])`
+                genCssRule.selectorText = `li[data-value*="${searchText}"]`;
                 return;
             }
-            genCssRule.selectorText = "li:not([data-value])";
+            genCssRule.selectorText = "li[data-value]";
         });
     </script>
 </body>
