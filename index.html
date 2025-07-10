@@ -19,25 +19,21 @@
             const notFound = [];
             document.querySelector("input").addEventListener("input", function () {
                 const newSearchText = this.value.toLowerCase();
-                if (newSearchText.length > searchText.length) {
-                    found.reduce((indexes, item, index) => {
-                        if (item.dataset.value.includes(newSearchText)) return indexes;
-                        item.classList.toggle("not-found");
-                        notFound.push(item);
-                        indexes.push(index);
-                        return indexes;
-                    }, [])
-                    .forEach((_, pos, indexes) => found.splice(indexes[indexes.length - pos - 1], 1));
-                } else if (newSearchText.length < searchText.length) {
-                    notFound.reduce((indexes, item, index) => {
-                        if (!item.dataset.value.includes(newSearchText)) return indexes;
-                        item.classList.toggle("not-found");
-                        found.push(item);
-                        indexes.push(index);
-                        return indexes;
-                    }, [])
-                    .forEach((_, pos, indexes) => notFound.splice(indexes[indexes.length - pos - 1], 1));
-                }
+                if (newSearchText.length === searchText.length) return;
+                const isForwardSearch = newSearchText.length > searchText.length;
+                const [forwardFound, backwardFound] = isForwardSearch ?
+                    [found, notFound] : [notFound, found];
+                const testEquality = isForwardSearch ?
+                    ((value) => value.includes(newSearchText)) :
+                    ((value) => !value.includes(newSearchText));
+                forwardFound.reduce((indexes, item, index) => {
+                    if (testEquality(item.dataset.value)) return indexes;
+                    item.classList.toggle("not-found");
+                    backwardFound.push(item);
+                    indexes.push(index);
+                    return indexes;
+                }, [])
+                .forEach((_, pos, indexes) => forwardFound.splice(indexes[indexes.length - pos - 1], 1));
                 searchText = newSearchText;
             });
         })
