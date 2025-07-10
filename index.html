@@ -14,27 +14,14 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            let searchText = "";
-            const found = [...document.querySelectorAll("li")];
-            const notFound = [];
+            const found = document.querySelectorAll("li");
             document.querySelector("input").addEventListener("input", function () {
-                const newSearchText = this.value.toLowerCase();
-                if (newSearchText.length === searchText.length) return;
-                const isForwardSearch = newSearchText.length > searchText.length;
-                const [forwardFound, backwardFound] = isForwardSearch ?
-                    [found, notFound] : [notFound, found];
-                const testEquality = isForwardSearch ?
-                    ((value) => value.includes(newSearchText)) :
-                    ((value) => !value.includes(newSearchText));
-                forwardFound.reduce((indexes, item, index) => {
-                    if (testEquality(item.innerText.toLowerCase())) return indexes;
-                    item.classList.toggle("not-found");
-                    backwardFound.push(item);
-                    indexes.push(index);
-                    return indexes;
-                }, [])
-                .forEach((_, pos, indexes) => forwardFound.splice(indexes[indexes.length - pos - 1], 1));
-                searchText = newSearchText;
+                found.forEach((item) => 
+                    item.classList.toggle("not-found", 
+                        !item.innerText.toLowerCase()
+                        .includes(this.value.toLowerCase())
+                    )
+                );
             });
         })
     </script>
