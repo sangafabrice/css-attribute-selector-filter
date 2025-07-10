@@ -7,24 +7,21 @@
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
     <script src="https://kit.fontawesome.com/bc720ffdfc.js" crossorigin="anonymous"></script>
-    <style title="generated-style"></style>
+    <style id="generated-style"></style>
 </head>
 <body>
     <main>
         <search><input type="search" placeholder="Search..." autocomplete="false" spellcheck="false" autofocus></search>
     </main>
     <script>
-        const genSheet = [...document.styleSheets]
-            .filter(({ title }) => title == "generated-style")[0];
-        genSheet.insertRule("li[data-value] { display: flex }", 0);
-        const genCssRule = genSheet.cssRules[0];
+        const genSheet = document.getElementById("generated-style").sheet;
+        genSheet.insertRule("li[data-value] { display: flex; }", 0);
+        const visibleStateCssRule = genSheet.cssRules[0];
         document.querySelector("input").addEventListener("input", function () {
             const searchText = this.value.toLowerCase();
-            if (searchText.length) {
-                genCssRule.selectorText = `li[data-value*="${searchText}"]`;
-                return;
-            }
-            genCssRule.selectorText = "li[data-value]";
+            visibleStateCssRule.selectorText = `li[data-value${
+                searchText.length ? `*="${searchText}"`:""
+            }]`;
         });
     </script>
 </body>
