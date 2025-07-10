@@ -240,7 +240,7 @@ const LANGUAGE = (() => {
 document.querySelector("main")
 .appendChild(document.createElement("ul"))
 .appendChild(LANGUAGE.reduce((fragment, language) => {
-    const item = document.createElement("li");
-    fragment.appendChild(item).appendChild(document.createTextNode(language));
+    fragment.appendChild(document.createElement("li"))
+    .appendChild(document.createTextNode(language));
     return fragment;
 }, document.createDocumentFragment()));

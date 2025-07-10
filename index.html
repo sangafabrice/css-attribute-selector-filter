@@ -14,9 +14,8 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const found = document.querySelectorAll("li");
             document.querySelector("input").addEventListener("input", function () {
-                found.forEach((item) => 
+                document.querySelectorAll("li").forEach((item) => 
                     item.classList.toggle("not-found", 
                         !item.innerText.toLowerCase()
                         .includes(this.value.toLowerCase())
