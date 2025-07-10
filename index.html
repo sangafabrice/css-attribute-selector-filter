@@ -7,22 +7,40 @@
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
     <script src="https://kit.fontawesome.com/bc720ffdfc.js" crossorigin="anonymous"></script>
-    <style id="generated-style"></style>
 </head>
 <body>
     <main>
         <search><input type="search" placeholder="Search..." autocomplete="false" spellcheck="false" autofocus></search>
     </main>
     <script>
-        const genSheet = document.getElementById("generated-style").sheet;
-        genSheet.insertRule("li[data-value] { display: flex; }", 0);
-        const visibleStateCssRule = genSheet.cssRules[0];
-        document.querySelector("input").addEventListener("input", function () {
-            const searchText = this.value.toLowerCase();
-            visibleStateCssRule.selectorText = `li[data-value${
-                searchText.length ? `*="${searchText}"`:""
-            }]`;
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+            let searchText = "";
+            const found = [...document.querySelectorAll("li")];
+            const notFound = [];
+            document.querySelector("input").addEventListener("input", function () {
+                const newSearchText = this.value.toLowerCase();
+                if (newSearchText.length > searchText.length) {
+                    found.reduce((indexes, item, index) => {
+                        if (item.dataset.value.includes(newSearchText)) return indexes;
+                        item.classList.toggle("not-found");
+                        notFound.push(item);
+                        indexes.push(index);
+                        return indexes;
+                    }, [])
+                    .forEach((_, pos, indexes) => found.splice(indexes[indexes.length - pos - 1], 1));
+                } else if (newSearchText.length < searchText.length) {
+                    notFound.reduce((indexes, item, index) => {
+                        if (!item.dataset.value.includes(newSearchText)) return indexes;
+                        item.classList.toggle("not-found");
+                        found.push(item);
+                        indexes.push(index);
+                        return indexes;
+                    }, [])
+                    .forEach((_, pos, indexes) => notFound.splice(indexes[indexes.length - pos - 1], 1));
+                }
+                searchText = newSearchText;
+            });
+        })
     </script>
 </body>
 </html>

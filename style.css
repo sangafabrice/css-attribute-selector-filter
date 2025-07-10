@@ -111,7 +111,12 @@ ul {
     }
 }
 
-/** default hidden state */
+/** default visible state */
 li {
+    display: flex;
+}
+
+/** hidden state */
+li.not-found {
     display: none;
 }
