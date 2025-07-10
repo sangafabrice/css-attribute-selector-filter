@@ -241,7 +241,6 @@ document.querySelector("main")
 .appendChild(document.createElement("ul"))
 .appendChild(LANGUAGE.reduce((fragment, language) => {
     const item = document.createElement("li");
-    item.dataset.value = language.toLowerCase();
-    fragment.appendChild(item);
+    fragment.appendChild(item).appendChild(document.createTextNode(language));
     return fragment;
 }, document.createDocumentFragment()));

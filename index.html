@@ -27,7 +27,7 @@
                     ((value) => value.includes(newSearchText)) :
                     ((value) => !value.includes(newSearchText));
                 forwardFound.reduce((indexes, item, index) => {
-                    if (testEquality(item.dataset.value)) return indexes;
+                    if (testEquality(item.innerText.toLowerCase())) return indexes;
                     item.classList.toggle("not-found");
                     backwardFound.push(item);
                     indexes.push(index);
